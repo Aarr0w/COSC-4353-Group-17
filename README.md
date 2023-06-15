@@ -1,5 +1,5 @@
 # COSC-4353-Group-17
-1. Discuss your initial thoughts in details on how you will design this application? (2 points)
+1. Discuss your initial thoughts in details on how you will design this application? (2 points) 
 	-We will use django for hosting & front-end
 	-We will use MySQL for our database, storing the password, username, location, profit margin, and fuel quote history for each user
 	-We will do the quote calculations in a function on the page for the fuel request form 
