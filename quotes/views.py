@@ -1,6 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpRequest
 from .forms import CustomerForm
+
 
 def calculate(a,b,c):
     x = 1
@@ -19,7 +22,17 @@ def register(request):
             form.save()
     context = {'form': form}
     return render(request, 'customer_form.html', context)
-
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username = username, password = password )
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            pass
+    return render(request, 'login.html')
 
 def return_quote(request):
     num = calculate(1,5,7)

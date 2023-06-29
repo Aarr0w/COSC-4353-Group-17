@@ -3,7 +3,8 @@ from . import views
 
 #URLConf
 urlpatterns = [
-    path('', views.index, name = 'index'),
+    path('home/', views.index, name = 'index'),
     path('form/submit/', views.return_quote),   
-    path('register/', views.register)   
+    path('register/', views.register),
+    path('login/', views.login_view, name='login'),   
 ]
