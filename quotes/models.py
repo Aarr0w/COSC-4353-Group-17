@@ -58,7 +58,7 @@ States_Choices = (
 class User(models.Model):
     full_name = models.CharField(max_length=50)
     Address_1 = models.CharField(max_length=100)
-    Address_2 = models.CharField(max_length=100, null = True)
+    Address_2 = models.CharField(max_length=100, null = True, blank=True)
     City = models.CharField(max_length=100)
     #State = models.CharField(max_length=10)
     State = models.CharField(max_length=15, choices= States_Choices, default='tx')
@@ -90,7 +90,7 @@ class Quote(models.Model):
     suggested_price = models.DecimalField(decimal_places=2, max_digits = 10, default = 3.09)    
     total_amount_due = models.DecimalField(decimal_places=2, max_digits = 10, default = 50)
 class Register(models.Model):
-    
+
     Username = models.CharField(max_length=15)
     Password = models.CharField(max_length=15)
 
