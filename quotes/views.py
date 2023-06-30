@@ -17,7 +17,7 @@ def index(request):
 def home(request):
     return render(request, "welcome.html",{})
 
-def register(request):
+def profile(request):
     form = CustomerForm()
     if request.method == 'POST':
         form = CustomerForm(request.POST)
