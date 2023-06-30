@@ -17,10 +17,12 @@ Fuel Quote
 <form action="" method = "post">
     <input type="submit">
 </form> -->
-
+<center>
+<br>
 <form action="" method="post">
     {%csrf_token%}
-    {{form}}
+    {{form.as_p}}
     <input type="submit">
 </form>
+</center>
 {% endblock%}

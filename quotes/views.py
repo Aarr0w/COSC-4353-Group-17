@@ -37,6 +37,7 @@ def login_view(request):
         else:
             pass
     return render(request, 'login.html')
+
 def login_register(request):
     form = LoginRegistration()
     if request.method == 'POST':
