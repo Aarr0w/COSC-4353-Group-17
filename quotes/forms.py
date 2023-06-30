@@ -12,6 +12,7 @@ class CustomerForm(forms.ModelForm):
     class Meta:
         model = User
         fields = "__all__"
+        
         #exclude = ['date_created','quote_amount']
 
 class FuelRequestForm(forms.ModelForm):
