@@ -12,7 +12,10 @@ def calculate(a,b,c):
 
 
 def index(request):
-    return render(request, 'welcome.html', {'name':'Mr.Krabs'})
+    return render(request, 'base.html', {})
+    
+def home(request):
+    return render(request, "welcome.html",{})
 
 def register(request):
     form = CustomerForm()
@@ -22,6 +25,7 @@ def register(request):
             form.save()
     context = {'form': form}
     return render(request, 'customer_form.html', context)
+
 def login_view(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -33,6 +37,15 @@ def login_view(request):
         else:
             pass
     return render(request, 'login.html')
+
+def fuel_request(request):
+    form = FuelRequestForm()
+    if request.method == 'POST':
+        form = FuelRequestForm(request.POST)
+        if form.is_valid():
+            form.save()
+    context = {'form': form}
+    return render(request, 'fuel_request.html', context)
 
 def return_quote(request):
     num = calculate(1,5,7)
