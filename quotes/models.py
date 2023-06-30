@@ -19,15 +19,15 @@ class User(models.Model):
 
 
 class Quote(models.Model):
-    user_name = models.CharField(max_length=200)
-    date = models.DateTimeField(max_length=200)
+    #user_name = models.CharField(max_length=200)
+    gallons_requested = models.DecimalField(decimal_places=2, max_digits = 10, default = 7)
+    delivery_address = models.CharField(max_length=200, default = 'Houston')
+    delivery_date = models.DateField()
     ''' Date/time	models.DateTimeField()	datetime NOT NULL	
         datetime NOT NULL	timestamp with time zone NOT NULL	
         TIMESTAMP NOT NULL	Creates a datetime field to s'''
-    delivery_address = models.CharField(max_length=200, default = 'Houston')
-    gallons_requested = models.DecimalField(decimal_places=2, max_digits = 10, default = 7)
-    profit_margin = models.DecimalField(decimal_places=2, max_digits = 10, default = 0.2)
-    quote_amount = models.DecimalField(decimal_places=2, max_digits = 10, default = 100)
+    suggested_price = models.DecimalField(decimal_places=2, max_digits = 10, default = 100)    
+    #profit_margin = models.DecimalField(decimal_places=2, max_digits = 10, default = 0.2)
 
 
 
