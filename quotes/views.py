@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpRequest
-from .forms import CustomerForm, FuelRequestForm
+from .forms import CustomerForm, FuelRequestForm, LoginRegistration
 
 
 def calculate(a,b,c):
@@ -37,6 +37,14 @@ def login_view(request):
         else:
             pass
     return render(request, 'login.html')
+def login_register(request):
+    form = LoginRegistration()
+    if request.method == 'POST':
+        form = LoginRegistration(request.POST)
+        if form.is_valid():
+            form.save()
+    context = {'form': form}
+    return render(request, 'login_reg.html', context)
 
 def fuel_request(request):
     

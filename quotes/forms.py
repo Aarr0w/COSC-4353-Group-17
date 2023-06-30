@@ -2,8 +2,8 @@
 # from built-in library
 from django.db import models
 from django import forms
-from .models import User
-from .models import Quote
+from .models import User,Quote,Register
+
 
 class DateInput(forms.DateInput):
         input_type = 'date'
@@ -24,3 +24,7 @@ class FuelRequestForm(forms.ModelForm):
             'delivery_date': DateInput(),
         }
         #exclude = ['date_created', 'quote_amount']
+class LoginRegistration(forms.ModelForm):
+     class Meta:
+        model = Register
+        fields = "__all__"
