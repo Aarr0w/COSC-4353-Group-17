@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinLengthValidator
+import datetime
 States_Choices = (
     ('al','AL'),
     ('ak','AK'),
@@ -89,6 +90,20 @@ class Quote(models.Model):
         TIMESTAMP NOT NULL	Creates a datetime field to s'''
     suggested_price = models.DecimalField(decimal_places=2, max_digits = 10, default = 3.09)    
     total_amount_due = models.DecimalField(decimal_places=2, max_digits = 10, default = 50)
+
+class Quote_History(models.Model):
+    #user_name = models.CharField(max_length=200) // If the user is logging in, then we don't need a username
+    date_created = models.DateField(default = datetime.date.today) 
+    gallons_requested = models.DecimalField(decimal_places=2, max_digits = 10, default = 7)
+    delivery_address = models.CharField(max_length=200, default = 'Houston') #Should be from client profile
+    delivery_date = models.DateField()
+    ''' Date/time	models.DateTimeField()	datetime NOT NULL	
+        datetime NOT NULL	timestamp with time zone NOT NULL	
+        TIMESTAMP NOT NULL	Creates a datetime field to s'''
+    suggested_price = models.DecimalField(decimal_places=2, max_digits = 10, default = 100) #Should not be editable
+    
+    #profit_margin = models.DecimalField(decimal_places=2, max_digits = 10, default = 0.2) #Should not be editable
+
 class Register(models.Model):
 
     Username = models.CharField(max_length=15)
