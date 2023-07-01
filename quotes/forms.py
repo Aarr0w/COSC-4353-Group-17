@@ -2,7 +2,7 @@
 # from built-in library
 from django.db import models
 from django import forms
-from .models import User,Quote,Register
+from .models import User,Quote,Register, Quote_History
 
 
 class DateInput(forms.DateInput):
@@ -28,3 +28,7 @@ class LoginRegistration(forms.ModelForm):
      class Meta:
         model = Register
         fields = "__all__"
+class FuelRequestHistory(forms.ModelForm):
+     class Meta:
+          model = Quote_History
+          fields = "__all__"
