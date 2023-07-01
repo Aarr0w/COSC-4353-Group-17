@@ -11,7 +11,7 @@ New User Registration
         <p>Please fill in this form to create an account.</p>
         <hr>
     {%csrf_token%}
-    {{form}}
+    {{form.as_p}}
     <input type="submit">
 </form>
 </center>

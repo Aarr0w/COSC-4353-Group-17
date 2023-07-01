@@ -5,10 +5,12 @@ Quote History
 {% endblock %}
 
 {%block content%}
+<center>
 <h1>History of Fuel Quotes</h1>
-<form action="" method="post">
-    {%csrf_token%}
-    {{form}}
-    <input type="submit">
-</form>
+    <form action="" method="post">
+        {%csrf_token%}
+        {{form.as_p}}
+        <input type="submit">
+    </form>
+</center>
 {% endblock %}
