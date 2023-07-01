@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpRequest
-from .forms import CustomerForm, FuelRequestForm, LoginRegistration
+from .forms import CustomerForm, FuelRequestForm, LoginRegistration, FuelRequestHistory
 
 
 def calculate(a,b,c):
@@ -56,6 +56,15 @@ def fuel_request(request):
             form.save()
     context = {'form': form}
     return render(request, 'fuel_request.html', context)
+    
+def fuel_history(request):
+    form = FuelRequestHistory()
+    if request.method == 'POST':
+        form = FuelRequestHistory(request.POST)
+        if form.is_valid():
+            form.save()
+    context = {'form': form}
+    return render(request, 'fuel_request_history.html', context)
 
 def return_quote(request):
     num = calculate(1,5,7)
