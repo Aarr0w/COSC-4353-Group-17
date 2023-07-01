@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title%}
+Quote History
+{% endblock %}
+
+{%block content%}
+<h1>History of Fuel Quotes</h1>
+<form action="" method="post">
+    {%csrf_token%}
+    {{form}}
+    <input type="submit">
+</form>
+{% endblock %}
