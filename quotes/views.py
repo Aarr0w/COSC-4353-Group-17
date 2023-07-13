@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate,login, logout
+from django.contrib import messages
 from django.http import HttpRequest
 from .forms import CustomerForm, FuelRequestForm, LoginRegistration, FuelRequestHistory
 
@@ -36,15 +37,13 @@ def login_view(request):
             login(request, user)
             return redirect('home')
         else:
-            pass
+            messages.info(request, 'Username OR Password is incorrect')
     return render(request, 'login.html')
 
 def login_register(request):
-    #form = UserCreationForm()
-    form = LoginRegistration()
-    if request.method == 'POST':
-        #form = UserCreationForm(request.POST)
     
+    form = LoginRegistration()
+    if request.method == 'POST':    
         form = LoginRegistration(request.POST)
         if form.is_valid():
             form.save()
