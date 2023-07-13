@@ -1,8 +1,11 @@
 # import the standard Django Model
 # from built-in library
 from django.db import models
+from django.forms import ModelForm
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django import forms
-from .models import User,Quote,Register, Quote_History
+from .models import Quote,Register, Quote_History
 
 
 class DateInput(forms.DateInput):
@@ -24,10 +27,11 @@ class FuelRequestForm(forms.ModelForm):
             'delivery_date': DateInput(),
         }
         #exclude = ['date_created', 'quote_amount']
-class LoginRegistration(forms.ModelForm):
+class LoginRegistration(UserCreationForm):
      class Meta:
-        model = Register
-        fields = "__all__"
+        model = User
+        #fields = "username", "password"
+        fields = ['username','password1','password2']
 class FuelRequestHistory(forms.ModelForm):
      class Meta:
           model = Quote_History
