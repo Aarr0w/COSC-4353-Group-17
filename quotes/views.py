@@ -58,6 +58,7 @@ def fuel_request(request):
         form = FuelRequestForm(request.POST)
         if form.is_valid():
             form.save()
+            return redirect('fuel_history')
     context = {'form': form}
     return render(request, 'fuel_request.html', context)
     
