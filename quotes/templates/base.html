@@ -34,6 +34,8 @@
                         <a href="{% url 'profile'%}" class="btn btn-primary">Profile</a>
                         <a href="{% url 'fuel_request'%}" class="btn btn-primary">Fuel Request</a>
                         <a href="{%url 'fuel_history'%}" class="btn btn-primary">Quote History</a>
+                        <span>Hello, {{request.user}} </span>
+                        <span><a href="{% url 'logout'%}" > Logout</a></span>
                     </h3>
                 </div>
             </div>  

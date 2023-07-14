@@ -57,7 +57,8 @@ States_Choices = (
 )
 # Create your models here.
 class User(models.Model):
-    full_name = models.CharField(max_length=50)
+    firstname = models.CharField(max_length=50)
+    lastname = models.CharField(max_length=50)
     Address_1 = models.CharField(max_length=100)
     Address_2 = models.CharField(max_length=100, null = True, blank=True)
     City = models.CharField(max_length=100)
