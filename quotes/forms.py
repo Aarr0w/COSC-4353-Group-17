@@ -22,7 +22,8 @@ class FuelRequestForm(forms.ModelForm):
     
     class Meta:
         model = Quote
-        fields = "__all__"
+        fields = ['gallons_requested', 'delivery_address',
+                  'delivery_date', 'suggested_price', 'total_amount_due']
         widgets = {
             'delivery_date': DateInput(),
         }
