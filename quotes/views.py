@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate,login, logout
 from django.contrib import messages
 from django.http import HttpRequest
 from .forms import CustomerForm, FuelRequestForm, LoginRegistration, FuelRequestHistory
-
+from django.contrib.auth.decorators import login_required
 
 def calculate(a,b,c):
     x = 1
@@ -39,7 +39,10 @@ def login_view(request):
         else:
             messages.info(request, 'Username OR Password is incorrect')
     return render(request, 'login.html')
-
+def logoutUser(request):
+    logout(request)
+    return redirect('login')
+    
 def login_register(request):
     
     form = LoginRegistration()
