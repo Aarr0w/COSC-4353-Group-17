@@ -65,7 +65,7 @@ class User(models.Model):
     #State = models.CharField(max_length=10)
     State = models.CharField(max_length=15, choices= States_Choices, default='tx')
    #State (Drop Down, selection required) DB will store 2 character state code 
-    Zipcode = models.CharField(max_length=9,validators=[MinLengthValidator(5,'the field must contain at least 5 characters')]) # how to set min_length?  
+    Zipcode = models.CharField(max_length=9,validators=[MinLengthValidator(5,'the field must contain at least 5 characters')]) 
 
     ''' - Full Name (50 characters, required)
         - Address 1 (100 characters, required)
@@ -82,11 +82,10 @@ class User(models.Model):
         #]
 
 class Quote(models.Model):
-    #user_name = models.CharField(max_length=200)
     gallons_requested = models.DecimalField(
         decimal_places=2, max_digits=10, default=7)
     delivery_address = models.CharField(max_length=200, default='Houston')
-    delivery_date = models.DateField(default='0000-00-00')
+    delivery_date = models.DateField(default=datetime.date.today)
     ''' Date/time	models.DateTimeField()	datetime NOT NULL	
         datetime NOT NULL	timestamp with time zone NOT NULL	
         TIMESTAMP NOT NULL	Creates a datetime field to s'''
@@ -98,15 +97,13 @@ class Quote(models.Model):
 
 class Quote_History(models.Model):
     # user_name = models.CharField(max_length=200) // If the user is logging in, then we don't need a username
-    date_created = models.DateField(default='0000-00-00')
+    date_created = models.DateField(blank=True, default=datetime.date.today)
     gallons_requested = models.DecimalField(
         decimal_places=2, max_digits=10, default=7)
     delivery_address = models.CharField(
         max_length=200, default='Houston')  # Should be from client profile
-    delivery_date = models.DateField(default='0000-00-00')
-    ''' Date/time	models.DateTimeField()	datetime NOT NULL	
-        datetime NOT NULL	timestamp with time zone NOT NULL	
-        TIMESTAMP NOT NULL	Creates a datetime field to s'''
+    delivery_date = models.DateField(blank=True, default=datetime.date.today)
+    # delivery_date = models.DateField(default='2005-05-25')
     suggested_price = models.DecimalField(
         decimal_places=2, max_digits=10, default=100)  # Should not be editable
 

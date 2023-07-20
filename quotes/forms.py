@@ -18,20 +18,18 @@ class CustomerForm(forms.ModelForm):
         
         #exclude = ['date_created','quote_amount']
 
-class FuelRequestForm(forms.ModelForm):
-    
+class FuelRequestForm(forms.ModelForm): 
     class Meta:
         model = Quote
         fields = ['gallons_requested', 'delivery_address',
                   'delivery_date', 'suggested_price', 'total_amount_due']
         widgets = {
-            'delivery_date': DateInput(),
+            'delivery_date': DateInput()
         }
-        #exclude = ['date_created', 'quote_amount']
+ 
 class LoginRegistration(UserCreationForm):
      class Meta:
         model = User
-        #fields = "username", "password"
         fields = ['username','password1','password2']
 class FuelRequestHistory(forms.ModelForm):
      class Meta:

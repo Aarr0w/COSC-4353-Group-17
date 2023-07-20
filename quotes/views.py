@@ -12,7 +12,6 @@ def calculate(a,b,c):
     y = 2
     return str(a+b+c)
 
-
 def index(request):
     return render(request, 'base.html', {})
     
@@ -54,8 +53,7 @@ def login_register(request):
     context = {'form': form}
     return render(request, 'login_reg.html', context)
 
-def fuel_request(request):
-    
+def fuel_request(request):   
     form = FuelRequestForm()
     if request.method == 'POST':
         form = FuelRequestForm(request.POST)
