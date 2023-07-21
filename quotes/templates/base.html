@@ -18,6 +18,13 @@
         hr.new1 {
             border: 1px solid black;
         }
+        body,
+    html {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+			background: #7abecc !important;
+		}
     </style>
 
 </head>
@@ -30,19 +37,23 @@
                 <div class="col text-center">
                     <h3>
                         <a href="{%url 'home'%}" class="btn btn-primary">Home</a>
-                        <a href="{% url 'login'%}" class="btn btn-primary">Log In</a>
+                        {% if request.user.is_authenticated %}
                         <a href="{% url 'profile'%}" class="btn btn-primary">Profile</a>
+                        {% else %}
+                        <a href="{% url 'login'%}" class="btn btn-primary">Log In</a>
+                        {% endif %}
                         <a href="{% url 'fuel_request'%}" class="btn btn-primary">Fuel Request</a>
-                        <a href="{%url 'fuel_history'%}" class="btn btn-primary">Quote History</a>
+                        <a href="{%url 'fuel_history'%}" class="btn btn-primary">Quote History</a><br>
                         <span>Hello, {{request.user}} </span>
+                        {% if request.user.is_authenticated %}
                         <span><a href="{% url 'logout'%}" > Logout</a></span>
+                        {% endif %}
+                        <hr class="new1">
                     </h3>
                 </div>
             </div>  
         </div>
     </nav>
-    <hr class="new1">
-
     <div id="content" , name="content">
         {% block content%}
         {% endblock%}
