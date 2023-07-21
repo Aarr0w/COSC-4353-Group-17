@@ -5,7 +5,7 @@ from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from .models import Quote,Register, Quote_History
+from .models import Quote,Register
 
 
 class DateInput(forms.DateInput):
@@ -31,7 +31,8 @@ class LoginRegistration(UserCreationForm):
      class Meta:
         model = User
         fields = ['username','password1','password2']
+
 class FuelRequestHistory(forms.ModelForm):
      class Meta:
-          model = Quote_History
+          model = Quote
           fields = "__all__"
