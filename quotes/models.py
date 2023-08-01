@@ -103,7 +103,7 @@ class Register(models.Model):
     Password = models.CharField(max_length=15)
     
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    username = models.CharField(max_length=50)
     firstname = models.CharField(max_length=50)
     lastname = models.CharField(max_length=50)
     Address_1 = models.CharField(max_length=100)

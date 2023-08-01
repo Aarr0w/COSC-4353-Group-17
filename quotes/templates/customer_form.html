@@ -10,5 +10,8 @@ Customer Form
     {{form.as_p}}
     <input type="submit">
 </form>
+{% for message in messages %}
+<p id="messages">{{message}}</p>
+{% endfor %}
 </center>
 {%endblock%}

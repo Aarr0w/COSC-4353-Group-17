@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate,login, logout
 from django.contrib import messages
 from django.http import HttpRequest
 from .forms import CustomerForm, FuelRequestForm, LoginRegistration, FuelRequestHistory, ProfileForm
-from .models import Quote
+from .models import Quote, Profile
 from django.contrib.auth.decorators import login_required
 
 
@@ -63,10 +63,13 @@ def profile(request):
     if request.method == 'POST':
         #form = CustomerForm(request.POST)
         form  = ProfileForm(request.POST)
-        if form.is_valid():
-            profile = form.save(Commit=False)
-            profile.user = request.user
-            profile.save()
+        username = request.session.get('username')
+        if form.is_valid() and username:
+            instance = form.save(commit=False)
+            instance.username = username        
+            instance.save()
+        else:
+            messages.info(request, 'Must be logged in to edit profile')
     context = {'form': form}
     return render(request, 'customer_form.html', context)
 
@@ -134,12 +137,18 @@ def fuel_history(request):
 def return_quote(request, gallons_requested):
     #user_state = User.objects.filter(username = request.session.get('username')).values('quote_amount')
     user_history = Quote.objects.filter(username = request.session.get('username')).all()
+    user_state = Profile.objects.filter(username = request.session.get('username')).values('State')[0]
     if len(user_history) > 0:
         history = 1
     else:
         history = 0
-
-    num = calculate('tx', history, float(gallons_requested) ) #Parameters need to be changed to be dynamic with current request form
+    
+    if not user_state:
+        user_state = 'TX'
+    print('============================================================')
+    print('user_state: ' + str(user_state))
+    #num = calculate('tx', history, float(gallons_requested) ) #Parameters need to be changed to be dynamic with current request form
+    num = calculate(user_state, history, float(gallons_requested) ) #Parameters need to be changed to be dynamic with current request form
     return num
     #(State, History (1 if there is a previous quote or 0 otherwise), number of gallons requested)
     #return render(request, 'show_quote.html', {'amount':num})

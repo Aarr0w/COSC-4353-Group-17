@@ -21,8 +21,7 @@ class CustomerForm(forms.ModelForm):
 class FuelRequestForm(forms.ModelForm): 
     class Meta:
         model = Quote
-        fields = ['gallons_requested', 'delivery_address',
-                  'delivery_date', 'suggested_price', 'total_amount_due']
+        fields = ['gallons_requested', 'delivery_address', 'delivery_date']
         widgets = {
             'delivery_date': DateInput()
         }
@@ -36,6 +35,8 @@ class FuelRequestHistory(forms.ModelForm):
      class Meta:
           model = Quote
           fields = "__all__"
+       
+
 class ProfileForm(forms.ModelForm):
      class Meta:
           model = Profile
