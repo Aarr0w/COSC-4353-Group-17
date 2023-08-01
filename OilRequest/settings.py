@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'reset_migrations',
+    #'reset_migrations',
     'django.contrib.staticfiles',
     'quotes.apps.QuotesConfig'
 ]

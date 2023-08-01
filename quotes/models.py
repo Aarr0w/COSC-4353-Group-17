@@ -92,7 +92,7 @@ class Quote(models.Model):
         datetime NOT NULL	timestamp with time zone NOT NULL	
         TIMESTAMP NOT NULL	Creates a datetime field to s'''
     suggested_price = models.DecimalField(
-        decimal_places=2, max_digits=10, default=3.09)
+        decimal_places=2, max_digits=10, default=1.5)
     total_amount_due = models.DecimalField(
         decimal_places=2, max_digits=10, default=50)
     # profit_margin = models.DecimalField(decimal_places=2, max_digits = 10, default = 0.2) #Should not be editable
