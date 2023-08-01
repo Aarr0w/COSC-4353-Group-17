@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate,login, logout
 from django.contrib import messages
 from django.http import HttpRequest
 from .forms import CustomerForm, FuelRequestForm, LoginRegistration, FuelRequestHistory
-from .models import Quote
+from .models import Quote, User
 from django.contrib.auth.decorators import login_required
 
 def calculate(state, history, gallons):
@@ -101,11 +101,19 @@ def fuel_request(request):
         if form.is_valid() and username:
             instance = form.save(commit=False)
             instance.username = username
+            print('============================================================')
+            print('gallons requested: ' + str(instance.gallons_requested))
+            total_due = return_quote(request, instance.gallons_requested)
+  
+            print('total due:' + str(total_due))
+          
+            instance.total_amount_due = total_due
             instance.save()
-            return return return_quote(request)
+            return  render(request, 'show_quote.html', {'amount':total_due})
         else:
             messages.info(request, 'Must be logged in to view Request History')
     context = {'form': form}
+    #return render(request, 'fuel_request.html', context)
     return render(request, 'fuel_request.html', context)
     
 
@@ -118,7 +126,16 @@ def fuel_history(request):
     else:
        return render(request, 'fuel_request_history.html') 
    
-def return_quote(request):
-    num = calculate('tx', 1, 1500 ) #Parameters need to be changed to be dynamic with current request form
+def return_quote(request, gallons_requested):
+    #user_state = User.objects.filter(username = request.session.get('username')).values('quote_amount')
+    user_history = Quote.objects.filter(username = request.session.get('username')).all()
+    if len(user_history) > 0:
+        history = 1
+    else:
+        history = 0
+
+    num = calculate('tx', history, float(gallons_requested) ) #Parameters need to be changed to be dynamic with current request form
+    return num
     #(State, History (1 if there is a previous quote or 0 otherwise), number of gallons requested)
-    return render(request, 'show_quote.html', {'amount':num})
+    #return render(request, 'show_quote.html', {'amount':num})
+    #return 
