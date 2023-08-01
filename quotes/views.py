@@ -117,7 +117,15 @@ def fuel_request(request):
             instance.save()
             return  render(request, 'show_quote.html', {'amount':total_due})
         else:
-            messages.info(request, 'Must be logged in and complete profile to view Request History')
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{form.fields[field].label}: {error}")
+           
+            if not username:
+                messages.error(request, "You must be logged in to submit a fuel request.")
+            if not has_profile:
+                messages.error(request, "Please complete your profile to submit a fuel request.")
+            #messages.info(request, 'Must be logged in and complete profile to view Request History')
     context = {'form': form}
     #return render(request, 'fuel_request.html', context)
     return render(request, 'fuel_request.html', context)
