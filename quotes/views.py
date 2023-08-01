@@ -64,7 +64,9 @@ def profile(request):
         #form = CustomerForm(request.POST)
         form  = ProfileForm(request.POST)
         if form.is_valid():
-            form.save()
+            profile = form.save(Commit=False)
+            profile.user = request.user
+            profile.save()
     context = {'form': form}
     return render(request, 'customer_form.html', context)
 
