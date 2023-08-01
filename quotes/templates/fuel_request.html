@@ -108,6 +108,9 @@ Fuel Request
                     </form>
                     
                 </div>
+				{% for message in messages %}
+				<p id="messages">{{message}}</p>
+				  {% endfor %}
             </div>
         </div>
     </div>
