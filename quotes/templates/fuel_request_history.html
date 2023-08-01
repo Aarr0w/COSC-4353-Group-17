@@ -88,9 +88,9 @@ Quote History
 				{% if user_data %}
 					<ul>
 						<table style="width:100%;">
-							<tr><th>Username</th><th>Gallons Requested</th><th>Delivery Date</th><th>Suggested Price</th><th>Total Due</th></tr>
+							<tr><th>Username</th><th>Gallons Requested</th><th>Delivery Address</th><th>Delivery Date</th><th>Suggested Price</th><th>Total Due</th></tr>
 							{% for user in user_data %}
-								<tr><td>{{ user.username }}</td><td>{{ user.gallons_requested }}</td><td>{{ user.delivery_date }}</td><td>{{ user.suggested_price }}</td><td>{{ user.total_amount_due }}</td></tr>
+								<tr><td>{{ user.username }}</td><td>{{ user.gallons_requested }}</td><td>{{ user.delivery_address }}</td><td>{{ user.delivery_date }}</td><td>{{ user.suggested_price }}</td><td>{{ user.total_amount_due }}</td></tr>
 							{% endfor %}
 						</table>
 					</ul>
