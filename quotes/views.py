@@ -8,10 +8,47 @@ from .forms import CustomerForm, FuelRequestForm, LoginRegistration, FuelRequest
 from .models import Quote
 from django.contrib.auth.decorators import login_required
 
-def calculate(a,b,c):
-    x = 1
-    y = 2
-    return str(a+b+c)
+def calculate(state, history, gallons):
+    currentPrice = 1.50
+    # Suggested Price = Current Price (1.50) + Margin
+    # Margin = Current Price * (Location Factor - Rate History Factor + Gallons Requested Factor + Company Profit Factor)
+
+    # Company Profit Factor = 0.1
+    # Location Factor: Texas = 0.02 ; Other = 0.04
+    # Rate History Factor: History = 0.01 ; Other - 0.00
+    # Gallons Requested Factor: <= 1000 = 0.03 ; > 1000 = 0.02
+
+    # Total Price = Suggested Price * Gallons
+
+    profitFactor = 0.10
+
+    # Location Factor
+    state = state.upper()  # for consistency
+    if state == 'TX':
+        locationFactor = 0.02
+    else:
+        locationFactor = 0.04
+
+    # Rate History Factor
+    if history == 1:
+        historyFactor = 0.01
+    else:
+        historyFactor = 0.00
+
+    # Gallons Requested Factor
+    if gallons > 1000:
+        gallonsFactor = 0.02
+    else:
+        gallonsFactor = 0.03
+
+    # Margin Calculation
+    margin = currentPrice * \
+        (locationFactor - historyFactor + gallonsFactor + profitFactor)
+    suggestedPrice = currentPrice + margin
+    totalDue = gallons * suggestedPrice
+    totalDue = "%.2f" % totalDue
+
+    return totalDue
 
 def index(request):
     return render(request, 'base.html', {})
@@ -82,5 +119,6 @@ def fuel_history(request):
        return render(request, 'fuel_request_history.html') 
    
 def return_quote(request):
-    num = calculate(1,5,7)
-    return render(request, 'show_quote.html', {'quote':num})
+    num = calculate('tx', 1, 1500 ) #Parameters need to be changed to be dynamic with current request form
+    #(State, History (1 if there is a previous quote or 0 otherwise), number of gallons requested)
+    return render(request, 'show_quote.html', {'amount':num})
