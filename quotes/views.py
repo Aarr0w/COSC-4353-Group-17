@@ -102,7 +102,7 @@ def fuel_request(request):
             instance = form.save(commit=False)
             instance.username = username
             instance.save()
-            return redirect('fuel_history')
+            return return return_quote(request)
         else:
             messages.info(request, 'Must be logged in to view Request History')
     context = {'form': form}
