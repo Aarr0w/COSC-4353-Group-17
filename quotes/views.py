@@ -144,7 +144,7 @@ def return_quote(request, gallons_requested):
         history = 0
     
     if not user_state:
-        user_state = 'tx'
+        user_state = 'TX'
     print('============================================================')
     print('user_state: ' + str(user_state))
     #num = calculate('tx', history, float(gallons_requested) ) #Parameters need to be changed to be dynamic with current request form
