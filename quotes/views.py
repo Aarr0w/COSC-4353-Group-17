@@ -7,9 +7,11 @@ from django.http import HttpRequest
 from .forms import CustomerForm, FuelRequestForm, LoginRegistration, FuelRequestHistory
 from .models import Quote, User
 from django.contrib.auth.decorators import login_required
+from decimal import Decimal
+
 
 def calculate(state, history, gallons):
-    currentPrice = 1.50
+    currentPrice = Decimal(1.50)
     # Suggested Price = Current Price (1.50) + Margin
     # Margin = Current Price * (Location Factor - Rate History Factor + Gallons Requested Factor + Company Profit Factor)
 
@@ -20,26 +22,26 @@ def calculate(state, history, gallons):
 
     # Total Price = Suggested Price * Gallons
 
-    profitFactor = 0.10
+    profitFactor = Decimal(0.10)
 
     # Location Factor
-    state = state.upper()  # for consistency
+    # state = state.upper()  # for consistency
     if state == 'TX':
-        locationFactor = 0.02
+        locationFactor = Decimal(0.02)
     else:
-        locationFactor = 0.04
+        locationFactor = Decimal(0.04)
 
     # Rate History Factor
     if history == 1:
-        historyFactor = 0.01
+        historyFactor = Decimal(0.01)
     else:
-        historyFactor = 0.00
+        historyFactor = Decimal(0.00)
 
     # Gallons Requested Factor
     if gallons > 1000:
-        gallonsFactor = 0.02
+        gallonsFactor = Decimal(0.02)
     else:
-        gallonsFactor = 0.03
+        gallonsFactor = Decimal(0.03)
 
     # Margin Calculation
     margin = currentPrice * \
@@ -48,8 +50,8 @@ def calculate(state, history, gallons):
     totalDue = gallons * suggestedPrice
     totalDue = "%.2f" % totalDue
 
-    return totalDue
-
+    return Decimal(totalDue)
+    
 def index(request):
     return render(request, 'base.html', {})
     
