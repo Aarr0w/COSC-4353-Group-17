@@ -36,6 +36,7 @@ class FuelRequestHistory(forms.ModelForm):
      class Meta:
           model = Quote
           fields = "__all__"
+          
 class ProfileForm(forms.ModelForm):
      class Meta:
           model = Profile

@@ -63,8 +63,13 @@ def profile(request):
     if request.method == 'POST':
         #form = CustomerForm(request.POST)
         form  = ProfileForm(request.POST)
-        if form.is_valid():
-            form.save()
+        username = request.session.get('username')
+        if form.is_valid() and username:
+            instance = form.save(commit=False)
+            instance.username = username        
+            instance.save()
+        else:
+            messages.info(request, 'Must be logged in to edit profile')
     context = {'form': form}
     return render(request, 'customer_form.html', context)
 
