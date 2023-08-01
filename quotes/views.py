@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate,login, logout
 from django.contrib import messages
 from django.http import HttpRequest
-from .forms import CustomerForm, FuelRequestForm, LoginRegistration, FuelRequestHistory
+from .forms import CustomerForm, FuelRequestForm, LoginRegistration, FuelRequestHistory, ProfileForm
 from .models import Quote
 from django.contrib.auth.decorators import login_required
 
@@ -57,9 +57,11 @@ def home(request):
     return render(request, "welcome.html",{})
 
 def profile(request):
-    form = CustomerForm()
+    #form = CustomerForm()
+    form = ProfileForm()
     if request.method == 'POST':
-        form = CustomerForm(request.POST)
+        #form = CustomerForm(request.POST)
+        form  = ProfileForm(request.POST)
         if form.is_valid():
             form.save()
     context = {'form': form}
@@ -102,7 +104,7 @@ def fuel_request(request):
             instance = form.save(commit=False)
             instance.username = username
             instance.save()
-            return return return_quote(request)
+            return return_quote(request)
         else:
             messages.info(request, 'Must be logged in to view Request History')
     context = {'form': form}

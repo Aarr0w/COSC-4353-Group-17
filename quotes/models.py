@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.core.validators import MinLengthValidator
 import datetime
 States_Choices = (
@@ -100,5 +101,18 @@ class Register(models.Model):
 
     Username = models.CharField(max_length=15)
     Password = models.CharField(max_length=15)
+    
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    firstname = models.CharField(max_length=50)
+    lastname = models.CharField(max_length=50)
+    Address_1 = models.CharField(max_length=100)
+    Address_2 = models.CharField(max_length=100, null = True, blank=True)
+    City = models.CharField(max_length=100)
+    #State = models.CharField(max_length=10)
+    State = models.CharField(max_length=15, choices= States_Choices, default='tx')
+   #State (Drop Down, selection required) DB will store 2 character state code 
+    Zipcode = models.CharField(max_length=9,validators=[MinLengthValidator(5,'the field must contain at least 5 characters')]) 
+
 
 
