@@ -105,21 +105,19 @@ def fuel_request(request):
     if request.method == 'POST':
         form = FuelRequestForm(request.POST)
         username = request.session.get('username')
-
-        if form.is_valid() and username:
+        profile = Profile.objects.filter(username = request.session.get('username')).all()
+        has_profile = False
+        if(len(profile) > 0):
+            has_profile = True
+        if form.is_valid() and username and has_profile:
             instance = form.save(commit=False)
             instance.username = username
-            print('============================================================')
-            print('gallons requested: ' + str(instance.gallons_requested))
-            total_due = return_quote(request, instance.gallons_requested)
-  
-            print('total due:' + str(total_due))
-          
+            total_due = return_quote(request, instance.gallons_requested)       
             instance.total_amount_due = total_due
             instance.save()
             return  render(request, 'show_quote.html', {'amount':total_due})
         else:
-            messages.info(request, 'Must be logged in to view Request History')
+            messages.info(request, 'Must be logged in and complete profile to view Request History')
     context = {'form': form}
     #return render(request, 'fuel_request.html', context)
     return render(request, 'fuel_request.html', context)
