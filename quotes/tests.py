@@ -15,7 +15,7 @@ class ModelsTestClass(TestCase):
     def setUp(self):
         self.client = Client()
 
-    def test_quote_form(self):                                      #Check if the quote form is valid
+    def test_quote_form(self):                                      #Checks if the quote form is valid
         form = FuelRequestForm(data={'username': "Pwright",'gallons_requested' : '7','delivery_address':"Houston",'suggested_price': "10",'total_amount_due':"70"})
         self.assertTrue(form.is_valid)
 
