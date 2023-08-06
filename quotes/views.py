@@ -68,6 +68,7 @@ def profile(request):
             instance = form.save(commit=False)
             instance.username = username        
             instance.save()
+            messages.success("Thank you!")
         else:
             messages.info(request, 'Must be logged in to edit profile')
     context = {'form': form}
